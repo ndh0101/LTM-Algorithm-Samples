@@ -1,0 +1,15 @@
+public static String giaiMaCaesar(String chuoiMaHoa, int s) {
+        int shift = s % 26;
+        StringBuilder thongDiepGoc = new StringBuilder();
+        // 1. Duyệt qua từng ký tự trong chuỗi mã hóa
+        for (char kyTu : chuoiMaHoa.toCharArray()) {
+            if (Character.isLetter(kyTu)) {                
+                char base = Character.isUpperCase(kyTu) ? 'A' : 'a';
+                int viTriMoi = (kyTu - base - shift + 26) % 26;
+                thongDiepGoc.append((char) (base + viTriMoi));
+            } else {
+                thongDiepGoc.append(kyTu);
+            }
+        }
+        return thongDiepGoc.toString();
+    }

@@ -1,0 +1,28 @@
+            // Xử lý: đảo ngược từ + mã hóa RLE
+            StringBuilder sb = new StringBuilder();
+            String[] words = s.split(" ");
+            for (int i = 0; i < words.length; i++) {
+                String reversed = new StringBuilder(words[i]).reverse().toString();
+                String encoded = rleEncode(reversed);
+                sb.append(encoded);
+                if (i < words.length - 1) {
+                    sb.append(" ");
+                }
+            }
+            String ans = result.toString();
+
+    // Hàm nén RLE
+    private static String rleEncode(String s) {
+        StringBuilder encoded = new StringBuilder();
+        int count = 1;
+        for (int i = 1; i <= s.length(); i++) {
+            if (i < s.length() && s.charAt(i) == s.charAt(i - 1)) {
+                count++;
+            } else {
+                encoded.append(s.charAt(i - 1));
+                if (count > 1) encoded.append(count);
+                count = 1;
+            }
+        }
+        return encoded.toString();
+    }

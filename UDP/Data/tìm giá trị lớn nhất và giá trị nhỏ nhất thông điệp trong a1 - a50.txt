@@ -1,0 +1,8 @@
+            String[] numberStrings = parts[1].split(",");
+            int[] numbers = Arrays.stream(numberStrings)
+                                  .mapToInt(Integer::parseInt)
+                                  .toArray();
+
+            int max = Arrays.stream(numbers).max().getAsInt();
+            int min = Arrays.stream(numbers).min().getAsInt();
+            String ans = requestId + ";" + max + "," + min;

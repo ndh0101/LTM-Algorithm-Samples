@@ -1,0 +1,13 @@
+public static String loaiBoKyTu(String chuoiGoc, String chuoiLoaiBo) {
+        Set<Character> kyTuCanLoaiBo = new HashSet<>();
+        for (char c : chuoiLoaiBo.toCharArray()) {
+            kyTuCanLoaiBo.add(c);
+        }
+        StringBuilder ketQua = new StringBuilder();
+        for (char c : chuoiGoc.toCharArray()) {
+            if (!kyTuCanLoaiBo.contains(c)) {
+                ketQua.append(c);
+            }
+        }
+        return ketQua.toString();
+    }

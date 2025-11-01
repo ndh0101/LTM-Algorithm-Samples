@@ -1,0 +1,48 @@
+package "";
+import java.io.*;
+import java.net.*;
+import java.util.*;
+import TCP.Model;
+public class ClientTCP {
+    public static void main(String[] args) throws Exception{
+        Socket socket = new Socket("203.162.10.109", 22..);
+        socket.setSoTimeout(5000);
+        String qCode="B22DCCN...;.........";
+
+        // ByteStream
+        InputStream is=socket.getInputStream();
+        OutputStream os=socket.getOutputStream();
+        os.write(qCode.getBytes());
+        os.flush();
+        byte[] b0=new byte[1024];
+        int length=is.read();
+        String s=new String(b0,0,length);
+        System.out.println(s);
+
+        //CharacterStream
+        BufferedReader br=new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        bw.write(qCode);
+        bw.newLine();
+        bw.flush();
+        String s1=br.readLine();
+        System.out.println(s1);
+        
+        //DataStream
+        DataInputStream dis=new DataInputStream(socket.getInputStream());
+        DataOutputStream dos=new DataOutputStream(socket.getOutputStream());
+        dos.writeUTF(qCode);
+        dos.flush();
+        String s2=dis.readUTF();
+        System.out.println(s2);
+        
+        //ObjectStream
+        ObjectInputStream ois=new ObjectInputStream(socket.getInputStream());
+        ObjectOutputStream oos=new ObjectOutputStream(socket.getOutputStream());
+        oos.writeObject(qCode);
+        oos.flush();
+        Model model=(model)ois.readObject();
+
+        socket.close();
+    }
+}

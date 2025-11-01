@@ -1,0 +1,36 @@
+            String requestId = parts[0];
+            int n = Integer.parseInt(parts[1]);
+            int k = Integer.parseInt(parts[2]);
+            String[] numStrings = parts[3].split(",");
+            int[] arr = new int[numStrings.length];
+            for (int i = 0; i < numStrings.length; i++) {
+                arr[i] = Integer.parseInt(numStrings[i].trim());
+            }
+            // c. Tính giá trị lớn nhất trong mỗi cửa sổ trượt kích thước k
+            List<Integer> resultList = slidingWindowMax(arr, k);
+            // Ghép kết quả thành chuỗi
+            StringBuilder resultStr = new StringBuilder();
+            for (int i = 0; i < resultList.size(); i++) {
+                resultStr.append(resultList.get(i));
+                if (i < resultList.size() - 1) resultStr.append(",");
+            }
+            .............
+
+    // Hàm tính giá trị lớn nhất trong mỗi cửa sổ trượt
+    private static List<Integer> slidingWindowMax(int[] arr, int k) {
+        List<Integer> result = new ArrayList<>();
+        Deque<Integer> dq = new LinkedList<>(); // lưu chỉ số của phần tử
+        for (int i = 0; i < arr.length; i++) {
+            // Xóa các phần tử không còn trong cửa sổ
+            while (!dq.isEmpty() && dq.peekFirst() <= i - k)
+                dq.pollFirst();
+            // Xóa các phần tử nhỏ hơn phần tử hiện tại
+            while (!dq.isEmpty() && arr[dq.peekLast()] <= arr[i])
+                dq.pollLast();
+            dq.offerLast(i);
+            // Ghi nhận giá trị lớn nhất khi cửa sổ đủ k phần tử
+            if (i >= k - 1)
+                result.add(arr[dq.peekFirst()]);
+        }
+        return result;
+    }

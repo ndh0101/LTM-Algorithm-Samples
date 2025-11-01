@@ -1,0 +1,53 @@
+package "";
+import java.io.*;
+import java.net.*;
+import java.util.*;
+import java.math.*;
+import UDP.Model;
+public class ClientUDP {
+    public static void main(String args[])throws Exception{
+        DatagramSocket socket=new DatagramSocket();
+        InetAddress ip=InetAddress.getByName("203.162.10.109");
+        int port=22..;
+        String qCode=";B22DCCN...;.........";
+        byte[] b=qCode.getBytes();
+        DatagramPacket dp=new DatagramPacket(b,b.length,ip,port);
+        socket.send(dp);
+
+        // Nhận dữ liệu là requestId + String
+        byte[] b1=new byte[1024];
+        DatagramPacket dp1=new DatagramPacket(b1,b1.length);
+        socket.receive(dp1);
+        byte[] receive=dp1.getData();
+        String s=new String(receive,0,dp1.getLength()).trim();
+        System.out.println(s);
+        String[] p=s.split(";");
+
+        // Nhận dữ liệu là requestId + Object
+	byte[] b1=new byte[1024];
+        DatagramPacket dp2=new DatagramPacket(b1,b1.length);
+        socket.receive(dp2);
+        byte[] receive=dp2.getData();
+	String requestId=new String(receive,0,8);
+	byte[] object=new byte[dp2.getlength()-8];
+	System.arraycopy(receive,8,object,0,object.length);
+	ByteArrayInputStream bais = new ByteArrayInputStream(objectBytes);
+        ObjectInputStream ois = new ObjectInputStream(bais);
+        Model model = (Model) ois.readObject();
+	System.out.println(model);
+	
+	// Gửi dữ liệu là requestId + Object
+	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(model);
+        oos.flush();
+        byte[] b2 = baos.toByteArray();
+        byte[] b3 = new byte[8 + b2.length];
+        System.arraycopy(requestId.getBytes(),0,b3,0,8);
+        System.arraycopy(b2,0,b3,8,b2.length);
+        DatagramPacket dp3=new DatagramPacket(b3,b3.length,ip,port);
+        socket.send(dp3);
+
+        socket.close();
+    }
+}

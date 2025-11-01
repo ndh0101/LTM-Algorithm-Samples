@@ -1,0 +1,14 @@
+        String[] part=p[1].split(",");
+        TreeMap<Integer,String>tm=new TreeMap<>();
+        for(String st:part){
+            String[] c=st.split(":");
+            int i=Integer.parseInt(c[1]);
+            tm.put(i,c[0]);
+        }
+        StringBuilder sb=new StringBuilder();
+        sb.append(p[0]).append(";");
+        for(String st:tm.values()){
+            sb.append(st).append(",");
+        }
+        sb.deleteCharAt(sb.length()-1);
+        String ans=sb.toString();

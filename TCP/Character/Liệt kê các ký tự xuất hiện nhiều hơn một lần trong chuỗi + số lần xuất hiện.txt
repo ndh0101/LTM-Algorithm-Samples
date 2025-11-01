@@ -1,0 +1,15 @@
+            // c. Đếm ký tự (chữ hoặc số) xuất hiện nhiều hơn 1 lần
+            Map<Character, Integer> freq = new LinkedHashMap<>();
+            for (char ch : response.toCharArray()) {
+                if (Character.isLetterOrDigit(ch)) {
+                    freq.put(ch, freq.getOrDefault(ch, 0) + 1);
+                }
+            }
+            // Tạo chuỗi kết quả
+            StringBuilder result = new StringBuilder();
+            for (Map.Entry<Character, Integer> entry : freq.entrySet()) {
+                if (entry.getValue() > 1) {
+                    result.append(entry.getKey()).append(":").append(entry.getValue()).append(",");
+                }
+            }
+            String output = result.toString();

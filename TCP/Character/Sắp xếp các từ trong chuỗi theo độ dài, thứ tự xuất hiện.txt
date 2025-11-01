@@ -1,0 +1,5 @@
+            String[] words = s.trim().split(" ");
+            List<String> wordList = Arrays.asList(words);
+            // Sắp xếp theo độ dài, stable sort
+            wordList.sort(Comparator.comparingInt(String::length));
+            String ans = String.join(", ", wordList);

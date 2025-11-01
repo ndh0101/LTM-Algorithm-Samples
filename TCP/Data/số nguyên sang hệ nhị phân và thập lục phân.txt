@@ -1,0 +1,5 @@
+public static String convertNumber(int number) {
+	String binaryString = Integer.toBinaryString(number);
+        String hexString = Integer.toHexString(number).toUpperCase();
+        return binaryString + ";" + hexString;
+    }

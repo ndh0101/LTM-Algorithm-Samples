@@ -1,0 +1,8 @@
+public static long tinhTongChuSo(BigInteger num) {
+        long tong = 0;
+        String soDangChuoi = num.abs().toString();
+        for (char c : soDangChuoi.toCharArray()) {
+            tong += (c - '0');
+        }
+        return tong;
+    }

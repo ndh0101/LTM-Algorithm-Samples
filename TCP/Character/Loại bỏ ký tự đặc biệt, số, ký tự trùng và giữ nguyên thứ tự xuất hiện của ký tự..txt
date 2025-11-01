@@ -1,0 +1,12 @@
+    public static String cleanString(String input) {
+        String alphaOnly = input.replaceAll("[^a-zA-Z]", "");
+        Set<Character> set = new LinkedHashSet<>();
+        for (char c : alphaOnly.toCharArray()) {
+            set.add(c);
+        }
+        StringBuilder sb = new StringBuilder();
+        for (Character c : set) {
+            sb.append(c);
+        }
+        return sb.toString();
+    }

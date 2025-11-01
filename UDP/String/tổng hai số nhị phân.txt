@@ -1,0 +1,10 @@
+String b1 = binaryNumbers[0]; // Số nhị phân 1 (dạng String)
+String b2 = binaryNumbers[1]; // Số nhị phân 2 (dạng String)
+
+// 2. Chuyển đổi nhị phân (String) sang thập phân (long)
+// Dùng 'long' để đảm bảo không bị tràn số nếu chuỗi nhị phân quá dài
+long dec1 = Long.parseLong(b1, 2);
+long dec2 = Long.parseLong(b2, 2);
+
+// 3. Tính tổng
+long sum = dec1 + dec2;

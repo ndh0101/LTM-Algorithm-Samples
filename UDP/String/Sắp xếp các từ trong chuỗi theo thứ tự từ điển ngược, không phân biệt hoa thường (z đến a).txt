@@ -1,0 +1,10 @@
+            String requestId = parts[0];
+            String data = parts[1];
+            String[] words = data.trim().split("\\s+");
+            Arrays.sort(words, new Comparator<String>() {
+                @Override
+                public int compare(String w1, String w2) {
+                    return w2.compareToIgnoreCase(w1); // đảo ngược, không phân biệt hoa thường
+                }
+            });
+            String result = requestId + ";" + String.join(",", words);
