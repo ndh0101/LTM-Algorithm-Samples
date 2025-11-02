@@ -1,0 +1,31 @@
+    public static String xepDongXu(int amount) {
+        if (amount < 0) {
+            return "-1";
+        }
+        if (amount == 0) {
+            return "0;";
+        }
+
+        // 3. Mệnh giá cố định, sắp xếp giảm dần để ưu tiên tham lam
+        int[] menhGia = {10, 5, 2, 1};
+        int soLuongXu = 0;
+        int soTienConLai = amount;
+        List<Integer> cacXuDaDung = new ArrayList<>();
+        for (int dongXu : menhGia) {            
+            int soLuongDongNay = soTienConLai / dongXu;
+            if (soLuongDongNay > 0) {
+                soLuongXu += soLuongDongNay;                
+                soTienConLai = soTienConLai % dongXu;                
+                for (int i = 0; i < soLuongDongNay; i++) {
+                    cacXuDaDung.add(dongXu);
+                }
+            }
+            if (soTienConLai == 0) {
+                break;
+            }
+        }
+        String chuoiCacXu = cacXuDaDung.stream()
+                                      .map(String::valueOf)
+                                      .collect(Collectors.joining(","));
+        return soLuongXu + ";" + chuoiCacXu;
+    }

@@ -1,0 +1,26 @@
+            String input = service.requestCharacter(studentCode, qCode);
+            Map<Character, Integer> freq = countCharacterFrequency(input);
+            String result = formatFrequencyMap(freq);
+
+    // Đếm tần số xuất hiện của từng ký tự
+    private static Map<Character, Integer> countCharacterFrequency(String text) {
+        Map<Character, Integer> freqMap = new LinkedHashMap<>();
+        for (char c : text.toCharArray()) {
+            freqMap.put(c, freqMap.getOrDefault(c, 0) + 1);
+        }
+        return freqMap;
+    }
+
+    // Định dạng kết quả ra chuỗi như ví dụ
+    private static String formatFrequencyMap(Map<Character, Integer> map) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        boolean first = true;
+        for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+            if (!first) sb.append(", ");
+            first = false;
+            sb.append("\"").append(entry.getKey()).append("\": ").append(entry.getValue());
+        }
+        sb.append("}");
+        return sb.toString();
+    }

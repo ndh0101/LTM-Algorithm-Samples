@@ -1,0 +1,13 @@
+package "";
+import java.util.*;
+import java.math.*;
+import vn.medianews.*;
+public class ClientWS {
+    public static void main(String[] args) throws Exception{
+	// ? = Data, Character, Object
+        ?Service_Service service = new ?Service_Service();
+        ?Service port = service.get?ServicePort();
+        String studentCode = "B22DCCN....";
+        String qCode = "..........";
+    }
+}

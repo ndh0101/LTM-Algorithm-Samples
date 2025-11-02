@@ -1,0 +1,46 @@
+            // === b. Gọi requestCharacter để lấy chuỗi từ server ===
+            String input = port.requestCharacter(studentCode, qCode);
+            String[] words = input.trim().split("[ _]+");
+            String pascalCase = toPascalCase(words);
+            String camelCase = toCamelCase(words);
+            String snakeCase = toSnakeCase(words);
+
+            // === c. Gửi mảng kết quả lại cho server ===
+            List<String> data = new ArrayList<>();
+            data.add(pascalCase);
+            data.add(camelCase);
+            data.add(snakeCase);
+            String result = port.submitCharacterStringArray(studentCode, qCode, data);
+
+    private static String toPascalCase(String[] words) {
+        StringBuilder sb = new StringBuilder();
+        for (String w : words) {
+            if (w.isEmpty()) continue;
+            sb.append(Character.toUpperCase(w.charAt(0)));
+            if (w.length() > 1)
+                sb.append(w.substring(1).toLowerCase());
+        }
+        return sb.toString();
+    }
+
+    private static String toCamelCase(String[] words) {
+        if (words.length == 0) return "";
+        StringBuilder sb = new StringBuilder(words[0].toLowerCase());
+        for (int i = 1; i < words.length; i++) {
+            String w = words[i];
+            if (w.isEmpty()) continue;
+            sb.append(Character.toUpperCase(w.charAt(0)));
+            if (w.length() > 1)
+                sb.append(w.substring(1).toLowerCase());
+        }
+        return sb.toString();
+    }
+
+    private static String toSnakeCase(String[] words) {
+        return String.join("_", 
+            java.util.Arrays.stream(words)
+                .filter(w -> !w.isEmpty())
+                .map(String::toLowerCase)
+                .toArray(String[]::new)
+        );
+    }
