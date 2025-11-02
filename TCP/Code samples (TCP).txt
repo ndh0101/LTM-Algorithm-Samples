@@ -15,7 +15,7 @@ public class ClientTCP {
         os.write(qCode.getBytes());
         os.flush();
         byte[] b0=new byte[1024];
-        int length=is.read();
+        int length=is.read(b0);
         String s=new String(b0,0,length);
         System.out.println(s);
 
@@ -45,4 +45,5 @@ public class ClientTCP {
 
         socket.close();
     }
+
 }
