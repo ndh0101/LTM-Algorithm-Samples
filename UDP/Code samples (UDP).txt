@@ -24,20 +24,20 @@ public class ClientUDP {
         String[] p=s.split(";");
 
         // Nhận dữ liệu là requestId + Object
-	byte[] b1=new byte[1024];
+		byte[] b1=new byte[1024];
         DatagramPacket dp2=new DatagramPacket(b1,b1.length);
         socket.receive(dp2);
         byte[] receive=dp2.getData();
-	String requestId=new String(receive,0,8);
-	byte[] object=new byte[dp2.getlength()-8];
-	System.arraycopy(receive,8,object,0,object.length);
-	ByteArrayInputStream bais = new ByteArrayInputStream(objectBytes);
+		String requestId=new String(receive,0,8);
+		byte[] object=new byte[dp2.getlength()-8];
+		System.arraycopy(receive,8,object,0,object.length);
+		ByteArrayInputStream bais = new ByteArrayInputStream(objectBytes);
         ObjectInputStream ois = new ObjectInputStream(bais);
         Model model = (Model) ois.readObject();
-	System.out.println(model);
+		System.out.println(model);
 	
-	// Gửi dữ liệu là requestId + Object
-	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		// Gửi dữ liệu là requestId + Object
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(model);
         oos.flush();
