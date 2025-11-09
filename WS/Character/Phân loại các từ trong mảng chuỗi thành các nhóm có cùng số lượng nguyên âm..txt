@@ -8,18 +8,14 @@
         }
         return vowelsFound.size();
     }
-
     public static List<String> groupWordsByDistinctVowelCount(List<String> words) {
-        Map<Integer, List<String>> groupedMap = words.stream()
-                .collect(Collectors.groupingBy(
-                        WordGrouper::countDistinctVowels, // Hàm dùng để phân loại
+        Map<Integer, List<String>> groupedMap = words.stream().collect(Collectors.groupingBy(
+                        word -> countDistinctVowels(word), // Hàm dùng để phân loại
                         TreeMap::new,                   // Sử dụng TreeMap để sắp xếp nhóm
                         Collectors.toList()             // Tập hợp các từ vào một List
                 ));
-        return groupedMap.values().stream()
-                .map(groupList -> {
+        return groupedMap.values().stream().map(groupList -> {
                     Collections.sort(groupList);                    
                     return String.join(", ", groupList);
-                })
-                .collect(Collectors.toList());
+                }).collect(Collectors.toList());
     }
