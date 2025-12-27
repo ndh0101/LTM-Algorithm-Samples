@@ -1,9 +1,0 @@
-    public static List<String> chuyenDoiHeCoSo(List<Integer> numbers) {
-        List<String> ketQua = new ArrayList<>();
-        for (Integer num : numbers) {
-            String chuoiHeCoSo8 = Integer.toOctalString(num);
-            String chuoiHeCoSo16 = Integer.toHexString(num).toUpperCase();
-            ketQua.add(chuoiHeCoSo8 + "|" + chuoiHeCoSo16);
-        }
-        return ketQua;
-    }
