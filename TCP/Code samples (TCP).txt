@@ -9,7 +9,7 @@ public class ClientTCP {
         socket.setSoTimeout(5000);
         String qCode="B22DCCN...;.........";
 
-        // ByteStream
+        //ByteStream
         InputStream is=socket.getInputStream();
         OutputStream os=socket.getOutputStream();
         os.write(qCode.getBytes());
@@ -43,7 +43,19 @@ public class ClientTCP {
         oos.flush();
         Model model=(model)ois.readObject();
 
+	    //Ngoại lệ
+import java.util.zip.*;
+	    GZIPInputStream gzipis=new GZIPInputStream(socket.getInputStream());
+        GZIPOutputStream gzipos=new GZIPOutputStream(socket.getOutputStream());
+        gzipos.write(qCode.getBytes());
+        gzipos.flush();
+        byte[] b0=new byte[1024];
+        int length=gzipis.read(b0);
+        String s=new String(b0,0,length).trim();
+        System.out.println(s);
+
         socket.close();
     }
 
 }
+
